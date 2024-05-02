@@ -19,7 +19,7 @@ if __name__ == "__main__":
     app.config.from_object('settings')
     mongo.init_app(app)
     print("running the application")
-    http_server = WSGIServer(('', 5000), app)
+    http_server = WSGIServer(('', 5001), app)
     http_server.serve_forever()
 
     

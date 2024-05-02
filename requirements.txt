@@ -15,7 +15,8 @@ Flask-PyMongo
 twilio
 flask_restful
 html_sanitizer
-# python_dontenv
+# python-dotenv
 bcrypt
 flask
+flask_cors
 # waitress
