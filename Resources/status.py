@@ -1,7 +1,7 @@
 
 from flask_restful import Resource
 class Status(Resource):
-    def get():
+    def get(self):
         return {
             "status": "ok"
         }, 200
