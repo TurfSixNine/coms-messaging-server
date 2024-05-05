@@ -4,14 +4,12 @@ from datetime import datetime , timedelta
 from functools import wraps
 from flask_restful import request
 import json
-from dotenv import load_dotenv
 from services import TwilioClient
 from html_sanitizer import Sanitizer
 import re
 sanitizer = Sanitizer()
 (client, twilio_number, message_ssid )= TwilioClient.get_client(TwilioClient)
 
-load_dotenv()
 
 
 class Util:
