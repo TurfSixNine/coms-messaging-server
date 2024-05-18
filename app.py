@@ -21,7 +21,7 @@ if __name__ == "__main__":
     app.config.from_object('settings')
     mongo.init_app(app)
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    context.load_cert_chain('/var/www/coms-messaging-server/coms.crt', '/var/www/coms-messaging-server/coms.key')
+    context.load_cert_chain("coms.csr", "coms.key")
 
     print("running the application")
     http_server = WSGIServer(('', 5001), app, ssl_context=context)
