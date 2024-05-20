@@ -11,7 +11,8 @@ import ssl
 load_dotenv(); 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+#cors = CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 api = Api(app); 
 
@@ -20,13 +21,13 @@ Routes(api)
 if __name__ == "__main__":
     app.config.from_object('settings')
     mongo.init_app(app)
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    context.load_cert_chain('certificate.crt', 'new-coms.key')
-    context.load_verify_locations(cafile="ca_bundle.crt")
+#    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+#    context.load_cert_chain('certificate.crt', 'new-coms.key')
+#    context.load_verify_locations(cafile="ca_bundle.crt")
 
 
     print("running the application")
-    http_server = WSGIServer(('', 5001), app, ssl_context=context)
+    http_server = WSGIServer(('', 5001), app)#, ssl_context=context)
     http_server.serve_forever()
 
     
