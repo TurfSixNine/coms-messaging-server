@@ -11,8 +11,8 @@ import ssl
 load_dotenv(); 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "https://coms-messaging-21078062.com"}})
-
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app)
 
 api = Api(app); 
 
