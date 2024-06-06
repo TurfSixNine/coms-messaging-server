@@ -25,8 +25,6 @@ class Message(Resource, Util):
                 sent_messages = self.message_collection.find({})
             else:
                 sent_messages = self.message_collection.find({'user_id': ObjectId(user['id'])})
-                  
-            
             
             # fetches the messages by message id
             # expensive loop as the size of messages grow
@@ -97,7 +95,13 @@ class Message(Resource, Util):
                 
                 return {f'{type}': call.sid}
             else:
-                return "email"
+               message = client.messages.create(
+                              body=messageBody,
+                              from_=f'whatsapp:{twilio_number}',
+                              to=f'whatsapp:{number}'
+                          )
+               self.handle_store_message(message.sid, form, type, user_id)
+               return {f'{type}': message.sid}
         except Exception as e:
                 return { f"{number}": {f"{type}": e.__doc__}, 
                         'number':number_object 

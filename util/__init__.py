@@ -36,7 +36,6 @@ class Util:
             },os.environ['JWT_SECRET'])
     def get_messaging_insights(self):
         try:
-            # get calls insight
             response = []
             message_summaries = client.messages.list(from_=twilio_number)
             for message in message_summaries:
