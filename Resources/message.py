@@ -4,10 +4,17 @@ from services import TwilioClient
 from bson.objectid import ObjectId
 from util import token_required, Util
 from services.db import mongo
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 import os
-from app import limiter
 (client, twilio_number, _) = TwilioClient.get_client(TwilioClient); 
 
+limiter = Limiter(
+    get_remote_address,  # Function to determine the client's IP address
+    default_limits=["100 per day", "50 per hour"],  # Default rate limits,
+    storage_uri="memory://",
+)
 
 class Message(Resource, Util):
     def __init__(self):
