@@ -5,8 +5,20 @@ from flask_cors import CORS
 from services.db import mongo
 from gevent.pywsgi import WSGIServer
 from dotenv import load_dotenv
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv(); 
+
+app = Flask(__name__)
+
+# Initialize Flask-Limiter with the Flask app
+limiter = Limiter(
+    get_remote_address,  # Function to determine the client's IP address
+    app=app,
+    default_limits=["100 per day", "50 per hour"]  # Default rate limits
+)
+
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
