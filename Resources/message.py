@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from util import token_required, Util
 from services.db import mongo
 import os
-
+from app import limiter
 (client, twilio_number, _) = TwilioClient.get_client(TwilioClient); 
 
 
@@ -49,6 +49,7 @@ class Message(Resource, Util):
             return str(e),500
          
     @token_required
+    @limiter.limit("10 per minute")
     def post(self, user):
         try:           
             form = request.get_json(force=True)
